@@ -17,7 +17,7 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
   const response = await fetch(getFetchUrl(`api/shopping/product/${id}`));
   const productData = (await response.json()) as ProductData;
 
-  if (!productData.content.pricing) {
+  if (!productData?.content?.pricing) {
     notFound();
   }
 
@@ -131,20 +131,20 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
         <hr className='my-10' />
         {productData.content.reviews && (
           <>
-            <h3 className='font-bold text-2xl'>
+            <h3 className='text-2xl font-bold'>
               Reviews ({productData.content.reviews.rating})
             </h3>
             <h4 className='text-lg italic'>Top Review</h4>
 
             {productData.content.reviews.top_review ? (
-              <div className='border p-5 rounded-lg mt-2'>
+              <div className='p-5 mt-2 border rounded-lg'>
                 <div className='flex space-x-1'>
-                  <p className='capitalize font-bold'>
+                  <p className='font-bold capitalize'>
                     {productData.content.reviews.top_review.author} says:
                   </p>
                   <h5> {productData.content.reviews.top_review.title}</h5>
                 </div>
-                <div className='flex space-x-1 mb-2'>
+                <div className='flex mb-2 space-x-1'>
                   {[
                     ...Array.from({
                       length: Math.round(
@@ -152,15 +152,15 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
                       ),
                     }),
                   ].map((_, i) => (
-                    <StarIcon key={i} className='h-5 w-5 text-yellow-500' />
+                    <StarIcon key={i} className='w-5 h-5 text-yellow-500' />
                   ))}
                 </div>
                 <p>{productData.content.reviews.top_review.text}</p>
               </div>
             ) : (
               <div>
-                <h3 className='font-bold text-2xl'>Reviews</h3>
-                <h4 className='italic text-lg'>No Review's yet</h4>
+                <h3 className='text-2xl font-bold'>Reviews</h3>
+                <h4 className='text-lg italic'>No Review's yet</h4>
               </div>
             )}
           </>
@@ -170,11 +170,11 @@ async function ProductPage({ params: { id } }: ProductPageProps) {
       {productData.content.specifications && (
         <section className=''>
           <hr className='my-10' />
-          <h3 className='font-bold text-2xl'>Specification</h3>
-          <div className='flex space-x-5 flex-wrap'>
+          <h3 className='text-2xl font-bold'>Specification</h3>
+          <div className='flex flex-wrap space-x-5'>
             {productData.content.specifications.map((specification, i) => (
               <div key={specification.section_title}>
-                <h4 className='font-bold my-2 text-xl'>
+                <h4 className='my-2 text-xl font-bold'>
                   {specification.section_title}
                 </h4>
                 {specification.items?.map((items) => (
